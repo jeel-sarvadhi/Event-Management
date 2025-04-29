@@ -1,0 +1,71 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "THER-.YYYY.-.####",
+ "creation": "2025-04-29 10:33:11.476325",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "town_hall_event",
+  "full_name",
+  "email",
+  "phone",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "town_hall_event",
+   "fieldtype": "Link",
+   "label": "Town Hall Event",
+   "options": "Town Hall Event"
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Phone",
+   "label": "Phone"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nConfirmed"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-04-29 11:22:42.605815",
+ "modified_by": "Administrator",
+ "module": "Event Management",
+ "name": "Town Hall Event Registration",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
