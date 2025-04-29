@@ -12,7 +12,8 @@
   "description",
   "column_break_brtq",
   "start_datetime",
-  "end_datetime"
+  "end_datetime",
+  "location"
  ],
  "fields": [
   {
@@ -49,12 +50,17 @@
   {
    "fieldname": "column_break_brtq",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-04-29 12:59:35.630634",
+ "modified": "2025-04-29 16:30:27.755622",
  "modified_by": "Administrator",
  "module": "Event Management",
  "name": "Town Hall Event",

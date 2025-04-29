@@ -1,41 +1,43 @@
 import frappe
+from frappe import _
+from frappe.model.document import Document
+from frappe.utils import get_url
 
 @frappe.whitelist(allow_guest=True)
-def send_event_registration_email(registration_docname):
-  # """Send a confirmation email to participant after successful event registration."""
+def register_participant(full_name, email, town_hall_event):
     try:
-        registration = frappe.get_doc("Town Hall Event Registration", registration_docname)
-        
-        if not registration.email:
-            frappe.throw("Participant email is missing.")
-        
-        subject = f"Thank You for Registering for {registration.town_hall_event}!"
-        
-        message = f"""
-        <p>Dear {registration.full_name},</p>
-        
-        <p>Thank you for registering for the event <strong>{registration.town_hall_event}</strong>.</p>
+        registration = frappe.get_doc({
+            "doctype": "Town Hall Event Registration",
+            "full_name": full_name,
+            "email": email,
+            "town_hall_event": town_hall_event
+        })
+        registration.insert(ignore_permissions=True)
 
-        <p><strong>Event Details:</strong></p>
-        <ul>
-            <li><strong>Date:</strong> {registration.start_datetime}</li>
-            <li><strong>Time:</strong> {registration.start_datetime or 'TBD'}</li>
-           
-        </ul>
+        event = frappe.get_doc("Town Hall Event", town_hall_event)
 
-        <p>We look forward to your participation!</p>
+        send_confirmation_email(email, full_name, event)
+        frappe.db.commit()
 
-        <p>Warm regards,<br>Your Events Team</p>
-        """
-
-        frappe.sendmail(
-            recipients=[registration.email],
-            subject=subject,
-            message=message
-        )
-
-        frappe.msgprint(f"Email sent to {registration.email}")
-    
+        return {"status": "success", "message": "Registered and email sent."}
     except Exception as e:
-        frappe.log_error(frappe.get_traceback(), "Event Registration Email Error")
-        frappe.throw(f"Failed to send email: {str(e)}")
+        frappe.log_error(frappe.get_traceback(), "Event Registration Error")
+        return {"status": "error", "message": str(e)}
+
+def send_confirmation_email(email, name, event):
+    subject = f"Thank you for registering for {event.name}"
+    # subject = f"Thank you for registering"
+    message = f"""
+    <p>Dear {name},</p>
+    <p>Thank you for registering for <strong></strong>.</p>
+    <p><strong>Date:</strong> {event.start_datetime}<br>
+    <strong>Location:</strong> {"surat"}</p>
+    <p>We look forward to your participation.</p>
+    <p>Best regards,<br>Your Event Team</p>
+    """
+
+    frappe.sendmail(
+        recipients=email,
+        subject=subject,
+        message=message
+    )
