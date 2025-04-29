@@ -148,7 +148,12 @@ app_license = "mit"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
+    "cron": {
+        "*/1 * * * *": [
+            "event_management.utils.complete_past_events.update_completed_events"
+        ]
+    }
 # 	"all": [
 # 		"event_management.tasks.all"
 # 	],
@@ -164,7 +169,7 @@ app_license = "mit"
 # 	"monthly": [
 # 		"event_management.tasks.monthly"
 # 	],
-# }
+}
 
 # Testing
 # -------
